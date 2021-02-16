@@ -11,8 +11,14 @@ dependencies:
   - xarray
   - numpy
 #  - birdy
-  - owslib>=0.19.0
+  # avoid owslib 0.22 with timeout bug
+  # https://github.com/geopython/OWSLib/issues/737
+  - owslib==0.21.0
   - netcdf4
+  # https://github.com/ecmwf/cfgrib
+  # Python interface to map GRIB files to the Unidata's Common Data Model v4
+  # following the CF Conventions.
+  - cfgrib
   - pydap
   - cartopy
   - descartes
@@ -40,6 +46,7 @@ dependencies:
   # pinning hvplot did not solve the problem with violin plot.
   - hvplot
   - nc-time-axis
+  - statsmodels  # for ravenpy
   - xclim
   # https://anaconda.org/anaconda/memory_profiler
   # Monitor memory consumption of a process as well as line-by-line analysis
@@ -57,12 +64,13 @@ dependencies:
   - jupyter
   # to be launched by image jupyterhub/jupyterhub
   - notebook
-  - jupyterlab
+  - jupyterlab==2.2.9
   - jupyterhub
   # to diff .ipynb files
   - nbdime
   # extension to produce .py files from notebook .ipynb files
-  - jupytext
+  # fix to 1.8.2 since latest version is only compatible with jupyterlab 3.0
+  - jupytext==1.8.2
   # jupyterlab extension for git
   - jupyterlab-git
   # jupyterlab extension for conda

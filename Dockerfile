@@ -23,15 +23,27 @@ RUN umask 0000 && conda env create -f /environment.yml
 # alternate way to 'source activate birdy'
 ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 
+# TODO: remove this hacked pin.  Should pin in environment.yml instead.
+# Added this pin here to not have to rebuild the gigantic `conda env create`
+# layer and also invalidate the layer below to force get latest ravenpy 0.2.3.
+# Pins cftime >= 1.2 < 1.4. Because 1.4 breaks xarray (pydata/xarray#4853).
+# https://github.com/Ouranosinc/xclim/pull/641
+RUN conda install -c conda-forge -c cdat -c bokeh -c plotly -c defaults -n birdy cftime==1.3.1
+
 # our notebooks are hardcoded to lookup for kernel named 'birdy'
 # this python is from the birdy env above
-RUN python -m ipykernel install --name birdy
+# Make, g++ and libnetcdf-dev needed for ravenpy install using --install-option.
+# Can move ravenpy install into environment.yml if this issue is resolved
+# https://github.com/conda/conda/issues/10119#issuecomment-767697552.
+RUN python -m ipykernel install --name birdy \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y make g++ libnetcdf-dev && apt-get clean \
+    && pip install ravenpy --install-option="--with-binaries"
 
 # install using same channel preferences as birdy original env to not downgrade
 # anything accidentally
 # this is for debug only, all dependencies should be specified in
 # environment.yml above
-# RUN conda install -c conda-forge -c cdat -c bokeh -c plotly -c defaults nbdime
+# RUN conda install -c conda-forge -c cdat -c bokeh -c plotly -c defaults -n birdy nbdime
 
 # build jupyterlab extensions installed by conda, see `jupyter labextension list`
 RUN jupyter lab build
