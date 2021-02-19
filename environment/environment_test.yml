@@ -1,0 +1,7 @@
+name: birdy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pytest
+  - nbval

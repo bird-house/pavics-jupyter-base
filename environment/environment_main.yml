@@ -1,0 +1,22 @@
+name: birdy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # avoid owslib 0.22 with timeout bug
+  # https://github.com/geopython/OWSLib/issues/737
+  - owslib==0.21.0
+  # to edit .ipynb
+  - jupyter
+  # to be launched by image jupyterhub/jupyterhub
+  - notebook
+  - jupyterlab==2.2.9
+  - jupyterhub
+  # utilities
+  - curl
+  - wget
+  # for pip packages
+  - pip
+  - pip:
+    - birdhouse-birdy
+    - requests-magpie
