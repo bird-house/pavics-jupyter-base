@@ -12,12 +12,12 @@ Fixes:
 ------
 - ...
 
-0.1.0 (2020-02-16)
+0.1.0 (2020-02-19)
 ===================
 
 Changes:
 --------
-- Added Dockerfile and environment.yml files from the PAVICS-e2e-workflow-tests project
+- Added Dockerfile and environment files, inspired by the corresponding files from PAVICS-e2e-workflow-tests project
 
 Fixes:
 ------

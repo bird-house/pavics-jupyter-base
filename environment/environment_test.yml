@@ -1,3 +1,4 @@
+# This file contains the packages related to testing
 name: birdy
 channels:
   - conda-forge

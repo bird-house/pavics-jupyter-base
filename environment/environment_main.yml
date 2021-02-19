@@ -1,3 +1,4 @@
+# This file contains the main required packages (such as jupyter) and other generic utilities
 name: birdy
 channels:
   - conda-forge

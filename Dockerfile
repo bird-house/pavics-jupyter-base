@@ -17,6 +17,8 @@ RUN groupadd --gid 1000 jenkins \
 RUN chmod -R a+rwx /opt/conda
 
 # create env "birdy"
+# environment is split into multiple .yml files, in order to reduce the amount of RAM usage for each Dockerfile steps
+# and to avoid CondaMemoryError when building the image on Docker Hub
 RUN conda env create -f /environment/environment_main.yml
 RUN conda env update -f /environment/environment_test.yml
 RUN conda env update -f /environment/environment_data.yml

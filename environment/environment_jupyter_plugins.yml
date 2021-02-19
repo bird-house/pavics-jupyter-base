@@ -1,3 +1,4 @@
+# This file contains the packages related to jupyter plugins and extensions
 name: birdy
 channels:
   - conda-forge
