@@ -2,40 +2,20 @@
 name: birdy
 channels:
   - conda-forge
-  - cdat
   - bokeh
-  - plotly  # for jupyter-dash
   - defaults
 dependencies:
   - matplotlib
   - xarray
   - numpy
-#  - birdy
   # avoid owslib 0.22 with timeout bug
   # https://github.com/geopython/OWSLib/issues/737
   - owslib==0.21.0
   - netcdf4
-  # https://github.com/ecmwf/cfgrib
-  # Python interface to map GRIB files to the Unidata's Common Data Model v4
-  # following the CF Conventions.
-  - cfgrib
   - pydap
-  - cartopy
-  - descartes
-  - rasterio
-  - gdal  # for osgeo
-  - geopandas
-  - pandas
-  - rioxarray
-  - scikit-image
   - ipyleaflet
-  - threddsclient
   - bokeh
-  - regionmask
-  - siphon
   - jupyter_bokeh
-  - pscript
-  - h5netcdf
   - panel
   - holoviews
   - geoviews
@@ -45,18 +25,6 @@ dependencies:
   # https://github.com/bird-house/birdhouse-deploy/pull/63#issuecomment-668270608
   # pinning hvplot did not solve the problem with violin plot.
   - hvplot
-  - nc-time-axis
-  - statsmodels  # for ravenpy
-  - xclim
-  # https://anaconda.org/anaconda/memory_profiler
-  # Monitor memory consumption of a process as well as line-by-line analysis
-  # of memory consumption for Python programs.
-  - memory_profiler
-  # for esgf notebooks
-  - esgf-compute-api
-  - cdms2
-  - vcs
-  - mesalib
   # tests
   - pytest
   - nbval
@@ -75,12 +43,7 @@ dependencies:
   - jupyterlab-git
   # jupyterlab extension for conda
   - jupyter_conda
-  # Voila turns Jupyter notebooks into standalone web applications
-  - voila
   - jupyter-archive
-  # xeus-python: back-end kernel implementing the Jupyter Debug Protocol
-  - xeus-python
-  - jupyter-dash
   # utilities
   - curl
   - wget
@@ -88,20 +51,4 @@ dependencies:
   - pip
   - pip:
     - birdhouse-birdy
-    # visual debugger for Jupyter Notebook, not working with JupyterLab at this moment
-    - pixiedust
     - requests-magpie
-    # block execution of 'run_all_cells' until user input finished
-    - ipython_blocking
-    # Mimics how one might format their calculation if it were written with a
-    # pencil: write the symbolic formula, followed by numeric substitutions,
-    # and then the result.
-    - handcalcs
-    # https://github.com/ShopRunner/jupyter-notify
-    # Jupyter Magic For Browser Notifications of Cell Completion.
-    - jupyternotify
-    # Needed for https://github.com/jtpio/jupyterlab-topbar
-    - nbresuse
-    # Needed to run notebook tests.  Missing indirect recursive dependencies
-    # somewhere, should not need to manually add it here.
-    - pytest-tornasync
