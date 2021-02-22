@@ -19,12 +19,12 @@ RUN chmod -R a+rwx /opt/conda
 # create env "birdy"
 # environment is split into multiple .yml files, in order to reduce the amount of RAM usage for each Dockerfile steps
 # and to avoid CondaMemoryError when building the image on Docker Hub
-RUN conda env create -f /environment/environment_main.yml
-RUN conda env update -f /environment/environment_test.yml
-RUN conda env update -f /environment/environment_data.yml
-RUN conda env update -f /environment/environment_visualization.yml
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
-RUN umask 0000 && conda env update -f /environment/environment_jupyter_plugins.yml
+RUN umask 0000 && conda env create -f /environment/environment_main.yml \
+    && conda env update -f /environment/environment_test.yml \
+    && conda env update -f /environment/environment_data.yml \
+    && conda env update -f /environment/environment_visualization.yml \
+    && conda env update -f /environment/environment_jupyter_plugins.yml
 
 # alternate way to 'source activate birdy'
 ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
