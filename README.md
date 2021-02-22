@@ -5,4 +5,4 @@ organizations.
 
 Repos for the component images :
 * crim-ca/pavics-jupyter-images : https://github.com/crim-ca/pavics-jupyter-images
-* Ouranos/pavics-jupyter-images : to be created
+* Ouranosinc/pavics-jupyter-images : to be created
