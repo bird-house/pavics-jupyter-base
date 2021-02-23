@@ -1,0 +1,9 @@
+# This file contains the packages developed by or that receive any contribution by CRIM and/or Ouranos.
+# The purpose of this file is to isolate packages which receive an active contribution and which will require more
+# frequent updates.
+name: birdy
+dependencies:
+  - owslib>=0.23.0
+  - birdhouse-birdy
+  - pip:
+    - requests-magpie

@@ -4,7 +4,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - owslib>=0.23.0
   # to edit .ipynb
   - jupyter
   # to be launched by image jupyterhub/jupyterhub

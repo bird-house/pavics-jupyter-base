@@ -1,6 +1,0 @@
-# This file contains the packages related to third parties
-name: birdy
-dependencies:
-  - pip:
-    - birdhouse-birdy
-    - requests-magpie
