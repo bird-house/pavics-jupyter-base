@@ -3,7 +3,7 @@
 # frequent updates.
 name: birdy
 dependencies:
-  - owslib>=0.23.0
-  - birdhouse-birdy
   - pip:
+    - birdhouse-birdy
     - requests-magpie
+    - owslib>=0.23.0
