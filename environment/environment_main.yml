@@ -16,6 +16,3 @@ dependencies:
   - wget
   # for pip packages
   - pip
-  - pip:
-    - birdhouse-birdy
-    - requests-magpie

@@ -24,7 +24,10 @@ RUN umask 0000 && conda env create -f /environment/environment_main.yml \
     && conda env update -f /environment/environment_test.yml \
     && conda env update -f /environment/environment_data.yml \
     && conda env update -f /environment/environment_visualization.yml \
-    && conda env update -f /environment/environment_jupyter_plugins.yml
+    && conda env update -f /environment/environment_jupyter_plugins.yml \
+    # The conda update for 3rd parties could potentially be moved further down in the Dockerfile,
+    # depending if its dependencies change too often, in order to optimize the duration of Docker builds.
+    && conda env update -f /environment/environment_3rd_party.yml
 
 # alternate way to 'source activate birdy'
 ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
