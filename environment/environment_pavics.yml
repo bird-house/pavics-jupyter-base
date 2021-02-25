@@ -2,8 +2,10 @@
 # The purpose of this file is to isolate packages which receive an active contribution and which will require more
 # frequent updates.
 name: birdy
+channels:
+  - conda-forge
 dependencies:
+  - owslib>=0.23.0
+  - birdy
   - pip:
-    - birdhouse-birdy
     - requests-magpie
-    - owslib>=0.23.0
