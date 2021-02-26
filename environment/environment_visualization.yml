@@ -1,0 +1,20 @@
+# This file contains the packages related to graphing and visualization tasks
+name: birdy
+channels:
+  - conda-forge
+  - bokeh
+  - defaults
+dependencies:
+  - matplotlib
+  - bokeh
+  - jupyter_bokeh
+  - panel
+  - holoviews
+  - geoviews
+  # this might still be relevant https://github.com/holoviz/hvplot/issues/498
+  # (violin plot not working with hvplot 0.6.0).
+  # Per this comment
+  # https://github.com/bird-house/birdhouse-deploy/pull/63#issuecomment-668270608
+  # pinning hvplot did not solve the problem with violin plot.
+  - hvplot
+  - ipyleaflet

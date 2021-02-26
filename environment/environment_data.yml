@@ -1,0 +1,10 @@
+# This file contains the packages related to data access and manipulation
+name: birdy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - xarray
+  - numpy
+  - netcdf4
+  - pydap

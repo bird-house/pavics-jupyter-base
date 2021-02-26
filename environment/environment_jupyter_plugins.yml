@@ -1,0 +1,16 @@
+# This file contains the packages related to jupyter plugins and extensions
+name: birdy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # to diff .ipynb files
+  - nbdime
+  # extension to produce .py files from notebook .ipynb files
+  # fix to 1.8.2 since latest version is only compatible with jupyterlab 3.0
+  - jupytext==1.8.2
+  # jupyterlab extension for git
+  - jupyterlab-git
+  # jupyterlab extension for conda
+  - jupyter_conda
+  - jupyter-archive

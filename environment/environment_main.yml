@@ -1,0 +1,17 @@
+# This file contains the main required packages (such as jupyter) and other generic utilities
+name: birdy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # to edit .ipynb
+  - jupyter
+  # to be launched by image jupyterhub/jupyterhub
+  - notebook
+  - jupyterlab==2.2.9
+  - jupyterhub
+  # utilities
+  - curl
+  - wget
+  # for pip packages
+  - pip

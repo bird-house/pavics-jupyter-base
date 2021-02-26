@@ -12,6 +12,17 @@ Fixes:
 ------
 - ...
 
+0.1.0 (2021-02-19)
+===================
+
+Changes:
+--------
+- Added Dockerfile and environment files, inspired by the corresponding files from PAVICS-e2e-workflow-tests project
+
+Fixes:
+------
+- na
+
 0.0.2 (2020-12-09)
 ===================
 
