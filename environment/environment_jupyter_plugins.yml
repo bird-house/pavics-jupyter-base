@@ -11,6 +11,6 @@ dependencies:
   - jupytext==1.8.2
   # jupyterlab extension for git
   - jupyterlab-git
-  # jupyterlab extension for conda
-  - jupyter_conda
+  # jupyterlab extension for conda, fix to 4.1.0 since latest version is only compatible with jupyterlab 3.0
+  - jupyter_conda==4.1.0
   - jupyter-archive
