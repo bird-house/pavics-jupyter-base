@@ -12,6 +12,17 @@ Fixes:
 ------
 - ...
 
+0.2.0 (2021-03-30)
+===================
+
+Changes:
+--------
+- Custom tutorial notebooks are added when executing the Docker image entrypoint
+
+Fixes:
+------
+- na
+
 0.1.0 (2021-02-19)
 ===================
 
