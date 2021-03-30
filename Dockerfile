@@ -55,10 +55,17 @@ ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook
 RUN chmod a+rx /usr/local/bin/start.sh /usr/local/bin/start-singleuser.sh /usr/local/bin/start-notebook.sh /usr/local/bin/fix-permissions; \
     chmod a+r /etc/jupyter/jupyter_notebook_config.py
 
+# Prepare script and tutorial notebooks folder
+COPY download-notebooks.sh /download-notebooks.sh
+RUN mkdir -p /notebook_dir/tutorial-notebooks
+# Change notebook folder's permission so user jenkins can execute the script and add notebooks to the tutorial folder
+RUN chmod a+rx /download-notebooks.sh ; \
+    chmod -R a+rwx /notebook_dir/tutorial-notebooks
+
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here
 USER jenkins
 
 # follow jupyter/base-notebook image so config in jupyterhub is simpler
-# start notebook in conda environment to have working jupyter extensions
-CMD ["conda", "run", "-n", "birdy", "/usr/local/bin/start-notebook.sh"]
+# download tutorial-notebooks and start notebook in conda environment to have working jupyter extensions
+CMD ["/bin/bash", "-c", "/download-notebooks.sh && conda run -n birdy /usr/local/bin/start-notebook.sh --SingleUserNotebookApp.default_url=/lab"]
