@@ -12,12 +12,12 @@ Fixes:
 ------
 - ...
 
-0.2.0 (2021-03-30)
+0.2.0 (2021-04-16)
 ===================
 
 Changes:
 --------
-- Custom tutorial notebooks are added when executing the Docker image entrypoint
+- Add the jq/yq installations, which are required for the deploy scripts for the notebooks in JupyterHub.
 
 Fixes:
 ------
