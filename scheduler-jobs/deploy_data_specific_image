@@ -23,8 +23,8 @@ if [ ! -z "$DEPLOY_DATA_LOGFILE" ]; then
     exec >>$DEPLOY_DATA_LOGFILE 2>&1
 fi
 
-if [ -z "$NOTEBOOK_DEST_DIR" ]; then
-    echo "ERROR: NOTEBOOK_DEST_DIR variable has not been set" 1>&2
+if [ -z "$DEPLOY_DATA_JOB_NOTEBOOK_DEST_DIR" ]; then
+    echo "ERROR: DEPLOY_DATA_JOB_NOTEBOOK_DEST_DIR variable has not been set" 1>&2
     exit 2
 fi
 
@@ -78,7 +78,7 @@ for ((i=0;i<$CONFIG_LIST_LENGTH;i++)); do
     fi
 
     FULL_URL=$GIT_REPO/branches/$BRANCH/$SOURCE_PATH
-    FULL_DEST_DIR=$NOTEBOOK_DEST_DIR/$DEST_SUB_DIR
+    FULL_DEST_DIR=$DEPLOY_DATA_JOB_NOTEBOOK_DEST_DIR/$DEST_SUB_DIR
 
     echo "Extracting ${FULL_URL} to ${FULL_DEST_DIR}"
 
