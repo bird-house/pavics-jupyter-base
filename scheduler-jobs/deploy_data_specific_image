@@ -9,6 +9,9 @@
 # - repo_url: path to the github repo (ex.: https://github.com/crim-ca/pavics-jupyter-images)
 #   branch: name of the branch containing the required version of the data
 #   source_path: path of the desired file or folder in the source repo
+#   dest_sub_dir: Data is sent to a tutorial-notebooks directory with the same name as the image running the script.
+#            Use this parameter to specify a subdirectory path (without a prefix '/') in this directory where the data will be sent.
+#            If the parameter is absent or left empty, data is sent directly to the image's tutorial-notebooks folder
 #
 # One or more entries respecting this format can be added to the yaml file, in order to download multiple file/folders.
 #
@@ -69,12 +72,18 @@ for ((i=0;i<$CONFIG_LIST_LENGTH;i++)); do
     SOURCE_PATH="`yq -r .[$i].source_path $CONFIG_YML_PATH`"
     ensure_not_null "SOURCE_PATH"
 
-    FULL_URL=$GIT_REPO/branches/$BRANCH/$SOURCE_PATH
+    DEST_SUB_DIR="`yq -r .[$i].dest_sub_dir $CONFIG_YML_PATH`"
+    if [ "${DEST_SUB_DIR}" = null ]; then
+        DEST_SUB_DIR=""
+    fi
 
-    echo "Extracting ${FULL_URL} to ${NOTEBOOK_DEST_DIR}"
+    FULL_URL=$GIT_REPO/branches/$BRANCH/$SOURCE_PATH
+    FULL_DEST_DIR=$NOTEBOOK_DEST_DIR/$DEST_SUB_DIR
+
+    echo "Extracting ${FULL_URL} to ${FULL_DEST_DIR}"
 
     # Download the data from github and copy it to the destination directory
-    svn export --force $FULL_URL $NOTEBOOK_DEST_DIR
+    svn export --force $FULL_URL $FULL_DEST_DIR
 done
 
 echo "notebookdeploy finished   END_TIME=`date -Isecond`"
