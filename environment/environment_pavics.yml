@@ -7,5 +7,7 @@ channels:
 dependencies:
   - owslib>=0.23.0
   - birdy
+  # for pip packages, include even if already in environment_main.yml, to avoid a warning problem on DockerHub
+  - pip
   - pip:
     - requests-magpie
