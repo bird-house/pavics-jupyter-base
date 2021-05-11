@@ -13,5 +13,7 @@ dependencies:
   # utilities
   - curl
   - wget
+  # to read yaml files from the deploy scripts for the notebooks in JupyterHub
+  - yq
   # for pip packages
   - pip

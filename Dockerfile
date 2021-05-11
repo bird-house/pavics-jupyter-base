@@ -4,7 +4,7 @@ RUN conda update conda
 
 # to checkout other notebooks and to run pip install
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y git mercurial gcc && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y git mercurial gcc jq && \
     apt-get clean
 
 COPY environment /environment
@@ -54,6 +54,9 @@ ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook
 ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/jupyter_notebook_config.py /etc/jupyter/
 RUN chmod a+rx /usr/local/bin/start.sh /usr/local/bin/start-singleuser.sh /usr/local/bin/start-notebook.sh /usr/local/bin/fix-permissions; \
     chmod a+r /etc/jupyter/jupyter_notebook_config.py
+
+# Include a copy of the script used by birdhouse-deploy to deploy the notebooks of the specific images
+COPY scheduler-jobs/deploy_data_specific_image /deploy_data_specific_image
 
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here

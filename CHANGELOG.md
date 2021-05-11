@@ -12,6 +12,18 @@ Fixes:
 ------
 - ...
 
+0.2.0 (2021-05-11)
+===================
+
+Changes:
+--------
+- Add the jq/yq installations, which are required for the deploy scripts for the notebooks in JupyterHub.
+- Add a deploy script and related env file used to download notebooks for specific images
+
+Fixes:
+------
+- na
+
 0.1.0 (2021-02-19)
 ===================
 
