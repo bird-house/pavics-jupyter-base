@@ -12,6 +12,17 @@ Fixes:
 ------
 - ...
 
+0.2.1 (2021-06-01)
+===================
+
+Changes:
+--------
+- Bumped version to test renovate-bot flow with component images
+
+Fixes:
+------
+- na
+
 0.2.0 (2021-05-11)
 ===================
 
