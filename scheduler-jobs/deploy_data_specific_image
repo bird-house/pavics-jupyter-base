@@ -82,10 +82,14 @@ for ((i=0;i<$CONFIG_LIST_LENGTH;i++)); do
 
     echo "Extracting ${FULL_URL} to ${FULL_DEST_DIR}"
 
-    # Download the data from github and copy it to the destination directory
-    # TODO: Handle renamed or deleted notebooks, since this command only copies the content of the source_dir in the dest_dir
-    # For now, any other file found in the dest_dir are not handled and remain in its location.
-    svn export --force $FULL_URL $FULL_DEST_DIR
+    # Download the data from github into tmp directory
+    svn export --force $FULL_URL tmp
+
+    # Synchronize source_dir with dest_dir
+    # --delete : delete extraneous files from destination dirs
+    rsync -rtovcs --delete tmp/ $FULL_DEST_DIR/
+    # Remove tmp directory
+    rm -r tmp
 done
 
 echo "notebookdeploy finished   END_TIME=`date -Isecond`"
