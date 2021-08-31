@@ -80,17 +80,19 @@ for ((i=0;i<$CONFIG_LIST_LENGTH;i++)); do
     FULL_URL=$GIT_REPO/branches/$BRANCH/$SOURCE_DIR
     FULL_DEST_DIR=$DEPLOY_DATA_JOB_NOTEBOOK_DEST_DIR/$DEST_SUB_DIR
 
+    FULL_TMP_DIR="/tmp/notebooks/$(basename $(dirname $FULL_DEST_DIR))_$(basename $FULL_DEST_DIR)"
+
     echo "Extracting ${FULL_URL} to ${FULL_DEST_DIR}"
 
     # Download the data from github into tmp directory
-    svn export --force $FULL_URL tmp
+    svn export --force $FULL_URL $FULL_TMP_DIR
 
     # Synchronize source_dir with dest_dir
     # --delete : delete extraneous files from destination dirs
-    rsync -rtovcs --delete tmp/ $FULL_DEST_DIR/
-    # Remove tmp directory
-    rm -r tmp
+    rsync -rtovcs --delete $FULL_TMP_DIR $FULL_DEST_DIR/
 done
+# Remove tmp directory
+rm -r tmp
 
 echo "notebookdeploy finished   END_TIME=`date -Isecond`"
 
