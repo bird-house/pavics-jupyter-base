@@ -11,6 +11,17 @@ Changes:
 Fixes:
 ------
 - ...
+0.2.2 (2021-09-10)
+===================
+
+Changes:
+--------
+- Add rsync installation, used for the deployement of notebooks in jupyterhub.
+
+Fixes:
+------
+- The deploy_data_specifi_image script now mirrors the git repository. 
+  
 
 0.2.1 (2021-06-01)
 ===================
