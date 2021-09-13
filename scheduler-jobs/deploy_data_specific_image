@@ -88,10 +88,11 @@ for ((i=0;i<$CONFIG_LIST_LENGTH;i++)); do
 
     # Synchronize source_dir with dest_dir
     # --delete : delete extraneous files from destination dirs
-    rsync -rtovcs --delete $FULL_TMP_DIR $FULL_DEST_DIR/
+    rsync --recursive --delete --times --checksum --protect-args $FULL_TMP_DIR/ $FULL_DEST_DIR/
 done
-# Remove tmp directory
-rm -r $FULL_TMP_DIR
+
+# Remove /tmp/notebooks directory
+rm --recursive --force $(dirname $FULL_TMP_DIR)
 
 echo "notebookdeploy finished   END_TIME=`date -Isecond`"
 
