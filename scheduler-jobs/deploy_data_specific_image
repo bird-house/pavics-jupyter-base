@@ -86,7 +86,7 @@ for ((i=0;i<$CONFIG_LIST_LENGTH;i++)); do
     # Download the data from github into tmp directory
     svn export --force $FULL_URL $FULL_TMP_DIR
 
-    # Synchronize source_dir with dest_dir
+    # Synchronize FULL_TMP_DIR with FULL_DEST_DIR
     # --delete : delete extraneous files from destination dirs
     rsync --recursive --delete --times --checksum --protect-args $FULL_TMP_DIR/ $FULL_DEST_DIR/
 done
