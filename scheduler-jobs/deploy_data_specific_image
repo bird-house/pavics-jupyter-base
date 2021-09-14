@@ -79,14 +79,20 @@ for ((i=0;i<$CONFIG_LIST_LENGTH;i++)); do
 
     FULL_URL=$GIT_REPO/branches/$BRANCH/$SOURCE_DIR
     FULL_DEST_DIR=$DEPLOY_DATA_JOB_NOTEBOOK_DEST_DIR/$DEST_SUB_DIR
+    FULL_TMP_DIR="/tmp/notebooks/item_$i"
 
     echo "Extracting ${FULL_URL} to ${FULL_DEST_DIR}"
 
-    # Download the data from github and copy it to the destination directory
-    # TODO: Handle renamed or deleted notebooks, since this command only copies the content of the source_dir in the dest_dir
-    # For now, any other file found in the dest_dir are not handled and remain in its location.
-    svn export --force $FULL_URL $FULL_DEST_DIR
+    # Download the data from github into tmp directory
+    svn export --force $FULL_URL $FULL_TMP_DIR
+
+    # Synchronize FULL_TMP_DIR with FULL_DEST_DIR
+    # --delete : delete extraneous files from destination dirs
+    rsync --recursive --delete --times --checksum --protect-args --verbose $FULL_TMP_DIR/ $FULL_DEST_DIR/
 done
+
+# Remove /tmp/notebooks directory
+rm --recursive --force $(dirname $FULL_TMP_DIR)
 
 echo "notebookdeploy finished   END_TIME=`date -Isecond`"
 
