@@ -4,12 +4,9 @@ RUN conda update conda
 
 # to checkout other notebooks and to run pip install
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y git mercurial gcc jq && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y git mercurial gcc jq rsync && \
     apt-get clean
-
-# Installation of rsync used for the notebooks deployement
-RUN apt-get -y install rsync
-
+    
 COPY environment /environment
 
 # needed for our specific jenkins
