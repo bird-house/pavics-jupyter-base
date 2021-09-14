@@ -88,7 +88,7 @@ for ((i=0;i<$CONFIG_LIST_LENGTH;i++)); do
 
     # Synchronize FULL_TMP_DIR with FULL_DEST_DIR
     # --delete : delete extraneous files from destination dirs
-    rsync --recursive --delete --times --checksum --protect-args $FULL_TMP_DIR/ $FULL_DEST_DIR/
+    rsync --recursive --delete --times --checksum --protect-args --verbose $FULL_TMP_DIR/ $FULL_DEST_DIR/
 done
 
 # Remove /tmp/notebooks directory
