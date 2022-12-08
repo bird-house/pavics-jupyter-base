@@ -50,13 +50,13 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
     && jupyter labextension install @jupyterlab/google-drive \
     && jupyter labextension install jupyterlab_conda
 
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/start.sh /usr/local/bin/
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/start-singleuser.sh /usr/local/bin/
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/start-notebook.sh /usr/local/bin/
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/fix-permissions /usr/local/bin/
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/jupyter_notebook_config.py /etc/jupyter/
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/main/docker-stacks-foundation/start.sh /usr/local/bin/
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/main/base-notebook/start-singleuser.sh /usr/local/bin/
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/main/base-notebook/start-notebook.sh /usr/local/bin/
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/main/docker-stacks-foundation/fix-permissions /usr/local/bin/
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/main/base-notebook/jupyter_server_config.py /etc/jupyter/
 RUN chmod a+rx /usr/local/bin/start.sh /usr/local/bin/start-singleuser.sh /usr/local/bin/start-notebook.sh /usr/local/bin/fix-permissions; \
-    chmod a+r /etc/jupyter/jupyter_notebook_config.py
+    chmod a+r /etc/jupyter/jupyter_server_config.py
 
 # Include a copy of the script used by birdhouse-deploy to deploy the notebooks of the specific images
 COPY scheduler-jobs/deploy_data_specific_image /deploy_data_specific_image
