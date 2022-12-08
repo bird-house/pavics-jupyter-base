@@ -37,7 +37,10 @@ ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 RUN python -m ipykernel install --name birdy
 
 # build jupyterlab extensions installed by conda, see `jupyter labextension list`
-RUN jupyter lab build
+# define NODE_OPTIONS variable to fix bug while building jupyter lab (see https://github.com/jupyterlab/jupyterlab/issues/11248)
+ENV NODE_OPTIONS="--openssl-legacy-provider"
+# try building jupyter lab or display building log in case of error
+RUN jupyter lab build || (find /tmp -name "jupyterlab-debug-*.log" 2>/dev/null -exec cat {} + && exit 1)
 
 # for ipywidgets to work with jupyter lab (notebooks works out of the box)
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
