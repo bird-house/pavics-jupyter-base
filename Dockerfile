@@ -50,9 +50,9 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
     && jupyter labextension install @jupyterlab/google-drive \
     && jupyter labextension install jupyterlab_conda
 
+# Install extension to display custom message on JupyterLab's topbar
 RUN jupyter labextension install jupyterlab-topbar-extension \
     && jupyter labextension install jupyterlab-topbar-text
-
 COPY schemas/plugin.json /opt/conda/envs/birdy/share/jupyter/lab/schemas/jupyterlab-topbar-text/plugin.json
 
 # Used fixed commit id, since the repo structure has changed, and using the newer scripts results in a bug with our current setup
