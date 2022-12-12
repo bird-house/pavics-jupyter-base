@@ -55,7 +55,7 @@ RUN jupyter labextension install jupyterlab-topbar-extension \
     && jupyter labextension install jupyterlab-topbar-text
 COPY schemas/plugin.json /opt/conda/envs/birdy/share/jupyter/lab/schemas/jupyterlab-topbar-text/plugin.json
 
-# Used fixed commit id, since the repo structure has changed, and using the newer scripts results in a bug with our current setup
+# Use an older fixed commit id, since the repo structure has changed, and using the newer scripts results in a bug with our current setup
 # Fixed to the commit id used for the base image 0.2.2 for now
 ENV DOCKER_STACKS_COMMIT_ID 2ddf41a430e15238afccbd4476fd8087d3252fb0
 ADD https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT_ID/base-notebook/start.sh /usr/local/bin/
