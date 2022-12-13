@@ -6,6 +6,17 @@ Unreleased (latest)
 
 Changes:
 --------
+- ...
+
+Fixes:
+------
+- ...
+
+0.3.0 (2022-12-13)
+===================
+
+Changes:
+--------
 - Add a JupyterLab extension to display a message on the top bar, along with the file `plugin.json` to customize the 
   extension display.
 
