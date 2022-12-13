@@ -37,7 +37,10 @@ ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 RUN python -m ipykernel install --name birdy
 
 # build jupyterlab extensions installed by conda, see `jupyter labextension list`
-RUN jupyter lab build
+# define NODE_OPTIONS variable to fix bug while building jupyter lab (see https://github.com/jupyterlab/jupyterlab/issues/11248)
+ENV NODE_OPTIONS="--openssl-legacy-provider"
+# try building jupyter lab or display building log in case of error
+RUN jupyter lab build || (find /tmp -name "jupyterlab-debug-*.log" 2>/dev/null -exec cat {} + && exit 1)
 
 # for ipywidgets to work with jupyter lab (notebooks works out of the box)
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
@@ -47,11 +50,19 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
     && jupyter labextension install @jupyterlab/google-drive \
     && jupyter labextension install jupyterlab_conda
 
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/start.sh /usr/local/bin/
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/start-singleuser.sh /usr/local/bin/
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/start-notebook.sh /usr/local/bin/
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/fix-permissions /usr/local/bin/
-ADD https://raw.githubusercontent.com/jupyter/docker-stacks/master/base-notebook/jupyter_notebook_config.py /etc/jupyter/
+# Install extension to display custom message on JupyterLab's topbar
+RUN jupyter labextension install jupyterlab-topbar-extension \
+    && jupyter labextension install jupyterlab-topbar-text
+COPY schemas/plugin.json /opt/conda/envs/birdy/share/jupyter/lab/schemas/jupyterlab-topbar-text/plugin.json
+
+# Use an older fixed commit id, since the repo structure has changed, and using the newer scripts results in a bug with our current setup
+# Fixed to the commit id used for the base image 0.2.2 for now
+ENV DOCKER_STACKS_COMMIT_ID 2ddf41a430e15238afccbd4476fd8087d3252fb0
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT_ID/base-notebook/start.sh /usr/local/bin/
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT_ID/base-notebook/start-singleuser.sh /usr/local/bin/
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT_ID/base-notebook/start-notebook.sh /usr/local/bin/
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT_ID/base-notebook/fix-permissions /usr/local/bin/
+ADD https://raw.githubusercontent.com/jupyter/docker-stacks/$DOCKER_STACKS_COMMIT_ID/base-notebook/jupyter_notebook_config.py /etc/jupyter/
 RUN chmod a+rx /usr/local/bin/start.sh /usr/local/bin/start-singleuser.sh /usr/local/bin/start-notebook.sh /usr/local/bin/fix-permissions; \
     chmod a+r /etc/jupyter/jupyter_notebook_config.py
 

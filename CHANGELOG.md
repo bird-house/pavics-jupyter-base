@@ -11,6 +11,20 @@ Changes:
 Fixes:
 ------
 - ...
+
+0.3.0 (2022-12-13)
+===================
+
+Changes:
+--------
+- Add a JupyterLab extension to display a message on the top bar, along with the file `plugin.json` to customize the 
+  extension display.
+
+Fixes:
+------
+- Fix bug while building JupyterLab (see [issue](https://github.com/jupyterlab/jupyterlab/issues/11248)).
+- Fix notebook scripts to use a specific commit id.
+
 0.2.2 (2021-09-10)
 ===================
 
