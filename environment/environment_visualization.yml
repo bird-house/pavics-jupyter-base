@@ -7,7 +7,8 @@ channels:
 dependencies:
   - matplotlib
   - bokeh
-  - jupyter_bokeh
+  # pin version to avoid newer versions which use jupyterlab 3
+  - jupyter_bokeh==2.0.4
   - panel
   - holoviews
   - geoviews
