@@ -13,4 +13,7 @@ dependencies:
   - jupyterlab-git
   # jupyterlab extension for conda, fix to 4.1.0 since latest version is only compatible with jupyterlab 3.0
   - jupyter_conda==4.1.0
+  # dependency of jupyter_conda, pinned to 21.0 to avoid "Invalid version: 'custom'" error with version 22.0, appearing
+  # when loading the list of available packages, which prevents the list from being loaded and displayed
+  - packaging==21.0
   - jupyter-archive
