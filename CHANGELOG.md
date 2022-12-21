@@ -28,6 +28,7 @@ Fixes:
 - Fix notebook scripts to use a specific commit id.
 - Pin `packaging` version to avoid a package installation error when using the `jupyterlab_conda` extension to install
   packages from JupyterLab.
+- Pin `jupyterlab-git` version to avoid newer versions which are only compatible with JupyterLab v3.
 - Pin some other requirements to avoid errors while installing environment during image build.
 
 0.2.2 (2021-09-10)

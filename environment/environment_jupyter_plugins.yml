@@ -9,8 +9,8 @@ dependencies:
   # extension to produce .py files from notebook .ipynb files
   # fix to 1.8.2 since latest version is only compatible with jupyterlab 3.0
   - jupytext==1.8.2
-  # jupyterlab extension for git
-  - jupyterlab-git
+  # jupyterlab extension for git, pinned since 0.40.0 and after are only compatible with jupyterlab 3.0
+  - jupyterlab-git==0.24.0
   # jupyterlab extension for conda, fix to 4.1.0 since latest version is only compatible with jupyterlab 3.0
   - jupyter_conda==4.1.0
   # dependency of jupyter_conda, pinned to 21.0 to avoid "Invalid version: 'custom'" error with version 22.0, appearing
