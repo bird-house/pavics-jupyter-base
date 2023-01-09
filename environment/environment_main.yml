@@ -4,6 +4,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
+  - python==3.9.7
   # to edit .ipynb
   - jupyter
   # to be launched by image jupyterhub/jupyterhub

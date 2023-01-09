@@ -12,6 +12,21 @@ Fixes:
 ------
 - ...
 
+0.4.0 (2022-12-23)
+===================
+
+Changes:
+--------
+- Install requirements with `mamba` instead of `conda`, which greatly speeds up the installation steps and which avoids
+  lots of resolution conflicts.
+
+Fixes:
+------
+- Pin `packaging` version to avoid a package installation error when using the `jupyterlab_conda` extension to install
+  packages from JupyterLab.
+- Pin `jupyterlab-git` version to avoid newer versions which are only compatible with JupyterLab v3.
+- Pin some other requirements to avoid errors while installing environment during image build.
+
 0.3.0 (2022-12-13)
 ===================
 

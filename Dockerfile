@@ -6,8 +6,6 @@ RUN conda update conda
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y git mercurial gcc jq rsync && \
     apt-get clean
-    
-COPY environment /environment
 
 # needed for our specific jenkins
 RUN groupadd --gid 1000 jenkins \
@@ -16,18 +14,23 @@ RUN groupadd --gid 1000 jenkins \
 # Change these folders' permissions for jupyter-conda extension
 RUN chmod -R a+rwx /opt/conda
 
+# Install mamba, to speed up the installation steps
+RUN umask 0000 && conda install mamba -n base -c conda-forge
+
+COPY environment /environment
+
 # create env "birdy"
 # environment is split into multiple .yml files, in order to reduce the amount of RAM usage for each Dockerfile steps
 # and to avoid CondaMemoryError when building the image on Docker Hub
 # use umask 0000 so that the files for the new environment are usable by user 'jenkins' for the jupyter-conda-extension
-RUN umask 0000 && conda env create -f /environment/environment_main.yml \
-    && conda env update -f /environment/environment_test.yml \
-    && conda env update -f /environment/environment_data.yml \
-    && conda env update -f /environment/environment_visualization.yml \
-    && conda env update -f /environment/environment_jupyter_plugins.yml \
+RUN umask 0000 && mamba env create -f /environment/environment_main.yml \
+    && mamba env update -f /environment/environment_test.yml \
+    && mamba env update -f /environment/environment_data.yml \
+    && mamba env update -f /environment/environment_visualization.yml \
+    && mamba env update -f /environment/environment_jupyter_plugins.yml \
     # The conda update for 3rd parties could potentially be moved further down in the Dockerfile,
     # depending if its dependencies change too often, in order to optimize the duration of Docker builds.
-    && conda env update -f /environment/environment_pavics.yml
+    && mamba env update -f /environment/environment_pavics.yml
 
 # alternate way to 'source activate birdy'
 ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
@@ -68,6 +71,9 @@ RUN chmod a+rx /usr/local/bin/start.sh /usr/local/bin/start-singleuser.sh /usr/l
 
 # Include a copy of the script used by birdhouse-deploy to deploy the notebooks of the specific images
 COPY scheduler-jobs/deploy_data_specific_image /deploy_data_specific_image
+
+# Give ownership of the conda cache folder to jenkins, to enable installing packages by the user from JupyterLab
+RUN chown -R 1000:1000 /opt/conda/pkgs/cache
 
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here
