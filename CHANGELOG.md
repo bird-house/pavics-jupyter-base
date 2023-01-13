@@ -12,6 +12,17 @@ Fixes:
 ------
 - ...
 
+0.4.1 (2023-01-11)
+===================
+
+Changes:
+--------
+- ...
+
+Fixes:
+------
+- Fix scheduler job to support displayed JupyterHub image names with versions.
+
 0.4.0 (2022-12-23)
 ===================
 
