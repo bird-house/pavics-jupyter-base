@@ -1,6 +1,9 @@
 FROM continuumio/miniconda3
 
-RUN conda update conda
+# To fix libmamba-solver error 
+RUN conda update -n base conda \
+    && conda install -n base conda-libmamba-solver \
+    && conda config --set solver libmamba
 
 # to checkout other notebooks and to run pip install
 RUN apt-get update && \
@@ -39,23 +42,16 @@ ENV PATH="/opt/conda/envs/birdy/bin:$PATH"
 # this python is from the birdy env above
 RUN python -m ipykernel install --name birdy
 
+# Using pip since package is not found when using mamba
+RUN pip install 'mlflow-server-proxy[resources]' 
+
 # build jupyterlab extensions installed by conda, see `jupyter labextension list`
 # define NODE_OPTIONS variable to fix bug while building jupyter lab (see https://github.com/jupyterlab/jupyterlab/issues/11248)
 ENV NODE_OPTIONS="--openssl-legacy-provider"
 # try building jupyter lab or display building log in case of error
 RUN jupyter lab build || (find /tmp -name "jupyterlab-debug-*.log" 2>/dev/null -exec cat {} + && exit 1)
 
-# for ipywidgets to work with jupyter lab (notebooks works out of the box)
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
-    && jupyter labextension install @jupyter-widgets/jupyterlab-manager jupyter-leaflet \
-    && jupyter labextension install @bokeh/jupyter_bokeh \
-    && jupyter labextension install @pyviz/jupyterlab_pyviz \
-    && jupyter labextension install @jupyterlab/google-drive \
-    && jupyter labextension install jupyterlab_conda
-
 # Install extension to display custom message on JupyterLab's topbar
-RUN jupyter labextension install jupyterlab-topbar-extension \
-    && jupyter labextension install jupyterlab-topbar-text
 COPY schemas/plugin.json /opt/conda/envs/birdy/share/jupyter/lab/schemas/jupyterlab-topbar-text/plugin.json
 
 # Use an older fixed commit id, since the repo structure has changed, and using the newer scripts results in a bug with our current setup
