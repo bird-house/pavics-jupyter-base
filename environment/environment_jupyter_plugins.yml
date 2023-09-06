@@ -10,7 +10,6 @@ dependencies:
   - jupytext
   - jupyterlab-git
   - jupyter_conda
-  # when loading the list of available packages, which prevents the list from being loaded and displayed
   - packaging
   - jupyter-archive
   # Extension can now be installed using pip with jupyterlab >= 3.0

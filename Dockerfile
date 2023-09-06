@@ -51,9 +51,6 @@ ENV NODE_OPTIONS="--openssl-legacy-provider"
 # try building jupyter lab or display building log in case of error
 RUN jupyter lab build || (find /tmp -name "jupyterlab-debug-*.log" 2>/dev/null -exec cat {} + && exit 1)
 
-# Install extension to display custom message on JupyterLab's topbar
-COPY schemas/plugin.json /opt/conda/envs/birdy/share/jupyter/lab/schemas/jupyterlab-topbar-text/plugin.json
-
 # Use an older fixed commit id, since the repo structure has changed, and using the newer scripts results in a bug with our current setup
 # Fixed to the commit id used for the base image 0.2.2 for now
 ENV DOCKER_STACKS_COMMIT_ID 2ddf41a430e15238afccbd4476fd8087d3252fb0
