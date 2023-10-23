@@ -18,3 +18,4 @@ dependencies:
   - yq
   # for pip packages
   - pip
+  - jsonschema==4.17.3

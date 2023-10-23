@@ -6,11 +6,12 @@ Unreleased (latest)
 
 Changes:
 --------
-- ...
+- Add a config directory named `/jupyter_config_dir` to allow users to mount JupyterLab extension configuration.
 
 Fixes:
 ------
-- ...
+- Use `conda-libmamba-solver` as a default solver to fix resolving issues when installing packages.
+- Pin `jsonschema` version to avoid compatibility issues between `referencing` and `attrs`.
 
 0.4.1 (2023-01-11)
 ===================

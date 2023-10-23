@@ -1,6 +1,9 @@
 FROM continuumio/miniconda3
 
-RUN conda update conda
+# to fix solver issue, use conda-libmamba-solver as default
+RUN conda update -n base conda \
+    && conda install -n base conda-libmamba-solver \
+    && conda config --set solver libmamba
 
 # to checkout other notebooks and to run pip install
 RUN apt-get update && \
@@ -74,6 +77,10 @@ COPY scheduler-jobs/deploy_data_specific_image /deploy_data_specific_image
 
 # Give ownership of the conda cache folder to jenkins, to enable installing packages by the user from JupyterLab
 RUN chown -R 1000:1000 /opt/conda/pkgs/cache
+
+# Create a new jupyter config directory to allow users to add JupyterLab extensions 
+RUN mkdir /jupyter_config_dir \
+    && chown -R 1000:1000 /jupyter_config_dir
 
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here
