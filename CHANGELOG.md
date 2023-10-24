@@ -10,8 +10,9 @@ Changes:
 
 Fixes:
 ------
-- Use `conda-libmamba-solver` as a default solver to fix resolving issues when installing packages.
 - Pin `jsonschema` version to avoid compatibility issues between `referencing` and `attrs`.
+- Pin `jupyter_client` version below `7.0` to avoid an issue with `nbconvert` causing the error
+  `TypeError: 'coroutine' object is not subscriptable` when accessing a notebook in Jupyterlab.
 
 0.4.1 (2023-01-11)
 ===================

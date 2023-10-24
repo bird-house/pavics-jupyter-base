@@ -1,9 +1,6 @@
 FROM continuumio/miniconda3
 
-# to fix solver issue, use conda-libmamba-solver as default
-RUN conda update -n base conda \
-    && conda install -n base conda-libmamba-solver \
-    && conda config --set solver libmamba
+RUN conda update conda
 
 # to checkout other notebooks and to run pip install
 RUN apt-get update && \
