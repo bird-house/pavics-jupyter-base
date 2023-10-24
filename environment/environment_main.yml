@@ -7,6 +7,7 @@ dependencies:
   - python==3.9.7
   # to edit .ipynb
   - jupyter
+  - jupyter_client<7.0
   # to be launched by image jupyterhub/jupyterhub
   - notebook
   - jupyterlab==2.2.9
@@ -18,3 +19,4 @@ dependencies:
   - yq
   # for pip packages
   - pip
+  - jsonschema==4.17.3

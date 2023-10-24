@@ -75,6 +75,11 @@ COPY scheduler-jobs/deploy_data_specific_image /deploy_data_specific_image
 # Give ownership of the conda cache folder to jenkins, to enable installing packages by the user from JupyterLab
 RUN chown -R 1000:1000 /opt/conda/pkgs/cache
 
+# Create a new jupyter config directory to allow users to add JupyterLab extensions 
+RUN mkdir /jupyter_config_dir \
+    && chown -R 1000:1000 /jupyter_config_dir \
+    && chmod g+s /jupyter_config_dir
+
 # problem running start-notebook.sh when being root
 # the jupyter/base-notebook image also do not default to root user so we do the same here
 USER jenkins
